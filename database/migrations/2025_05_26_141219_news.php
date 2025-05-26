@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('news', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Primary key
             $table->string('title');
-            $table->string('image_path')->nullable(); // opgeslagen op server
+            $table->string('image_path')->nullable();
             $table->text('content');
             $table->timestamp('published_at');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // FK naar users (optioneel)
             $table->timestamps();
         });
     }
