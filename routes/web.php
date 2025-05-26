@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ContactController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,3 +22,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+// Publieke routes
+Route::resource('news', NewsController::class);
+Route::resource('faq', FaqController::class)->only(['index', 'show']);
+Route::post('/contact', [ContactController::class, 'store']);
+
+// Publiek profiel bekijken (geen middleware want publiek)
+Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show');

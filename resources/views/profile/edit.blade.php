@@ -27,3 +27,25 @@
         </div>
     </div>
 </x-app-layout>
+@if(session('success'))
+    <div>{{ session('success') }}</div>
+@endif
+
+<form action="{{ route('profile.update') }}" method="POST">
+    @csrf
+    @method('PATCH')
+
+    <label>Username:</label>
+    <input type="text" name="username" value="{{ old('username', $user->username) }}">
+    @error('username') <div>{{ $message }}</div> @enderror
+
+    <label>Verjaardag:</label>
+    <input type="date" name="birthday" value="{{ old('birthday', $user->birthday) }}">
+    @error('birthday') <div>{{ $message }}</div> @enderror
+
+    <label>Over mij:</label>
+    <textarea name="about">{{ old('about', $user->about) }}</textarea>
+    @error('about') <div>{{ $message }}</div> @enderror
+
+    <button type="submit">Opslaan</button>
+</form>
