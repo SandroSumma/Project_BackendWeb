@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('image_path')->nullable();
             $table->text('content');
+            $table->string('image')->nullable();
             $table->timestamp('published_at');
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // FK naar users (optioneel)
             $table->timestamps();

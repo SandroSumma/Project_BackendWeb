@@ -7,6 +7,16 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ContactController;
 
 
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+
+Route::middleware(['auth', 'can:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('news', AdminNewsController::class)->except(['show']);
+});
+
+Route::get('/nieuws', [NewsController::class, 'index'])->name('news.index');
+Route::get('/nieuws/{news}', [NewsController::class, 'show'])->name('news.show');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -23,8 +33,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 // Publieke routes
-Route::resource('news', NewsController::class);
-Route::resource('faq', FaqController::class)->only(['index', 'show']);
+Route::resource('news', NewsController::class)->only(['index', 'show']);
+Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 Route::post('/contact', [ContactController::class, 'store']);
 
 // Publiek profiel bekijken (geen middleware want publiek)
@@ -34,3 +44,10 @@ Route::get('/nieuwtjes', [NewsController::class, 'index'])->name('news.index');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'); // Voor contactformulier verzending
+
+
+
+// Enkel voor admin
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::resource('admin/news', NewsController::class)->except(['index', 'show']);
+});
