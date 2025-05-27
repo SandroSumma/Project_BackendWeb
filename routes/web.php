@@ -29,3 +29,8 @@ Route::post('/contact', [ContactController::class, 'store']);
 
 // Publiek profiel bekijken (geen middleware want publiek)
 Route::get('/users/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
+Route::get('/nieuwtjes', [NewsController::class, 'index'])->name('news.index');
+Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'); // Voor contactformulier verzending

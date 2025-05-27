@@ -26,29 +26,38 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(Request $request): RedirectResponse
-{
-    $user = $request->user();
-
-    // Valideer de velden, inclusief email en username uniekheid, verjaardag, en over mij
-    $data = $request->validate([
-        'username' => 'nullable|string|max:255|unique:users,username,' . $user->id,
-        'email' => 'nullable|email|max:255|unique:users,email,' . $user->id,
-        'birthday' => 'nullable|date',
-        'about' => 'nullable|string',
-    ]);
-
-    // Vul het model met de gevalideerde data
-    $user->fill($data);
-
-    // Reset email verificatie als email gewijzigd is
-    if ($user->isDirty('email')) {
-        $user->email_verified_at = null;
+    {
+        $user = $request->user();
+    
+        $data = $request->validate([
+            'username' => 'nullable|string|max:255|unique:users,username,' . $user->id,
+            'email' => 'nullable|email|max:255|unique:users,email,' . $user->id,
+            'birthday' => 'nullable|date',
+            'about' => 'nullable|string',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // max 2MB
+        ]);
+    
+        if ($request->hasFile('profile_photo')) {
+            // Verwijder oude foto als die er is
+            if ($user->profile_photo) {
+                \Storage::delete('public/' . $user->profile_photo);
+            }
+    
+            $path = $request->file('profile_photo')->store('profile-photos', 'public');
+            $data['profile_photo'] = $path;
+        }
+    
+        $user->fill($data);
+    
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+    
+        $user->save();
+    
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
-
-    $user->save();
-
-    return Redirect::route('profile.edit')->with('status', 'profile-updated');
-}
+    
 
     /**
      * Delete the user's account.
