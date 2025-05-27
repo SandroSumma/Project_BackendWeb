@@ -1,3 +1,97 @@
+Laravel Backend Web Eindopdracht
+
+Projectoverzicht
+
+Deze Laravel 12-webapplicatie is gebouwd als eindopdracht voor het vak Backend Web.
+De site bevat onder andere:
+
+- Gebruikersbeheer met login, registratie en rollen (admin/gebruiker)
+- Nieuwsbeheer: admins kunnen nieuws toevoegen, bewerken en verwijderen
+- FAQ-pagina met categorieën en vragen
+- Publieke profielpagina’s voor gebruikers
+- Contactformulier dat e-mails verstuurt naar de admin
+
+Functionaliteiten
+
+1. Gebruikersbeheer
+- Registratie, login en logout.
+- Admin- en gebruikersrollen met juiste autorisatie.
+- Profielen kunnen bekeken en aangepast worden.
+
+2. Nieuwsbeheer
+- Admins beheren nieuwsitems (CRUD).
+- Nieuws bevat titel, afbeelding, content en publicatiedatum.
+- Nieuws wordt publiek getoond met overzicht en detailpagina.
+
+3. FAQ
+- Veelgestelde vragen onderverdeeld in categorieën.
+- Admins beheren FAQ-categorieën en vragen.
+
+4. Contactformulier
+- Bezoekers kunnen een bericht sturen naar admin.
+- Bericht wordt via e-mail verzonden.
+
+Installatie
+
+1. Clone de repository:
+   git clone https://github.com/jouwgebruikersnaam/jouwproject.git
+   cd jouwproject
+
+2. Installeer PHP dependencies:
+   composer install
+
+3. Installeer Node dependencies:
+   npm install
+   npm run dev
+
+4. Kopieer .env.example naar .env en configureer je databasegegevens.
+
+5. Genereer app key:
+   php artisan key:generate
+
+6. Voer migraties en seeding uit:
+   php artisan migrate --seed
+
+7. Start de server:
+   php artisan serve
+
+8. Open http://localhost:8000 in je browser.
+
+Admin login
+
+- Email: admin@ehb.be
+- Wachtwoord: Password!321
+
+Belangrijke bestanden en mappen
+
+- app/Http/Controllers — Controllers voor nieuws, FAQ, profiel, contact
+- resources/views — Blade templates (news, faq, auth, profile, admin)
+- database/migrations — Database migraties
+- database/seeders — Seeder voor initiële data (zoals FAQ, admin account)
+- routes/web.php — Webroutes met middleware voor admin en auth
+
+Toekomstige uitbreidingen
+
+- Tweestapsverificatie (2FA) voor extra veiligheid
+- Reactieve filtering en zoeken in nieuws en FAQ
+- Berichtbeheer voor admin (inzendingen contactformulier)
+- Profielfoto upload met crop-tool
+- Reactieve UI met Vue.js / Livewire
+
+Bronnen
+
+- Laravel 12 Documentatie: https://laravel.com/docs/12.x
+- Laravel Breeze: https://laravel.com/docs/12.x/starter-kits#laravel-breeze
+- Bootstrap CSS framework
+- OpenAI ChatGPT (voor hulp en code-voorbeeld)
+
+
+
+
+
+
+
+
 <<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
